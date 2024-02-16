@@ -13,14 +13,12 @@
 
 using namespace std;
 
-// Structure to represent a node (intersection) in the graph
 struct Node {
     int id; // Intersection ID
     double x, y; // Coordinates of the intersection (for collision detection)
     Node(int _id, double _x, double _y) : id(_id), x(_x), y(_y) {}
 };
 
-// Structure to represent an edge (road segment) in the graph
 struct Edge {
     int from; // Source intersection ID
     int to; // Destination intersection ID
@@ -28,19 +26,17 @@ struct Edge {
     Edge(int _from, int _to, double _weight) : from(_from), to(_to), weight(_weight) {}
 };
 
-// Comparator function for priority queue (min heap)
 struct CompareDistance {
     bool operator()(const pair<int, double>& a, const pair<int, double>& b) {
         return a.second > b.second; // Compare distances (for min heap)
     }
 };
 
-// Function to compute Euclidean distance between two points
 double computeDistance(double x1, double y1, double x2, double y2) {
     return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
-// Function to perform collision avoidance using Dijkstra's algorithm
+
 vector<int> dijkstra(const vector<vector<Edge>>& graph, const vector<Node>& intersections,
                      int source, int destination, const vector<Node>& obstacles) {
     vector<double> distances(graph.size(), numeric_limits<double>::max()); // Initialize distances to infinity
@@ -85,7 +81,7 @@ vector<int> dijkstra(const vector<vector<Edge>>& graph, const vector<Node>& inte
         }
     }
 
-    // Backtrack from destination to source to find the shortest path
+  
     vector<int> shortestPath;
     int currentIntersection = destination;
     while (currentIntersection != source) {
@@ -99,7 +95,7 @@ vector<int> dijkstra(const vector<vector<Edge>>& graph, const vector<Node>& inte
 }
 
 int main() {
-    // Define the road network (graph) with intersections and road segments
+  
     vector<Node> intersections = {
         Node(0, 0.0, 0.0), // Example intersection 0
         Node(1, 10.0, 5.0), // Example intersection 1
@@ -110,19 +106,19 @@ int main() {
     vector<vector<Edge>> graph(intersections.size()); // Graph representing road network
     // Populate graph with road segments (edges) between intersections
 
-    // Define obstacles (e.g., pedestrians, cyclists, vehicles)
+ 
     vector<Node> obstacles = {
         Node(3, 5.0, 2.0), // Example obstacle 1
         Node(4, 12.0, 7.0), // Example obstacle 2
         // Add more obstacles as needed
     };
 
-    // Perform collision avoidance path planning from intersection 0 to intersection 2
+ 
     int sourceIntersection = 0;
     int destinationIntersection = 2;
     vector<int> shortestPath = dijkstra(graph, intersections, sourceIntersection, destinationIntersection, obstacles);
 
-    // Output the shortest path
+ 
     cout << "Shortest path from intersection " << sourceIntersection << " to intersection " << destinationIntersection << ": ";
     for (int intersection : shortestPath) {
         cout << intersection << " ";
