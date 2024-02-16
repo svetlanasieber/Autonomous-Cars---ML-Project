@@ -22,7 +22,7 @@ struct Node {
     Node(int _id) : id(_id) {}
 };
 
-// Structure to represent an edge (road segment) in the graph
+
 struct Edge {
     int from; // Source intersection ID
     int to; // Destination intersection ID
@@ -30,14 +30,14 @@ struct Edge {
     Edge(int _from, int _to, int _weight) : from(_from), to(_to), weight(_weight) {}
 };
 
-// Structure to represent a transit stop (e.g., bus stop or train station)
+
 struct TransitStop {
     int id; // Stop ID
     bool isTransfer; // Indicates if it's a transfer stop (e.g., subway station)
     TransitStop(int _id, bool _isTransfer = false) : id(_id), isTransfer(_isTransfer) {}
 };
 
-// Structure to represent a transit edge (e.g., bus route or subway line)
+
 struct TransitEdge {
     int from; // Source stop ID
     int to; // Destination stop ID
@@ -45,14 +45,14 @@ struct TransitEdge {
     TransitEdge(int _from, int _to, int _weight) : from(_from), to(_to), weight(_weight) {}
 };
 
-// Comparator function for priority queue (min heap)
+
 struct CompareDistance {
     bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
         return a.second > b.second; // Compare distances (for min heap)
     }
 };
 
-// Function to perform path planning using Dijkstra's algorithm
+
 vector<int> dijkstra(const vector<vector<Edge>>& roadGraph, const vector<vector<TransitEdge>>& transitGraph,
                      int source, int destination) {
     vector<int> roadDistances(roadGraph.size(), numeric_limits<int>::max()); // Initialize road distances to infinity
@@ -72,7 +72,7 @@ vector<int> dijkstra(const vector<vector<Edge>>& roadGraph, const vector<vector<
             break; // Found shortest path to destination
         }
 
-        // Road-based path planning
+        
         for (const Edge& roadEdge : roadGraph[currentIntersection]) {
             int neighborIntersection = roadEdge.to;
             int newDistance = currentDistance + roadEdge.weight;
@@ -84,7 +84,7 @@ vector<int> dijkstra(const vector<vector<Edge>>& roadGraph, const vector<vector<
             }
         }
 
-        // Transit-based path planning
+     
         for (const TransitEdge& transitEdge : transitGraph[currentIntersection]) {
             int neighborStop = transitEdge.to;
             int newDistance = currentDistance + transitEdge.weight;
@@ -96,7 +96,7 @@ vector<int> dijkstra(const vector<vector<Edge>>& roadGraph, const vector<vector<
         }
     }
 
-    // Backtrack from destination to source to find the shortest path
+  
     vector<int> shortestPath;
     int currentIntersection = destination;
     while (currentIntersection != source) {
@@ -110,22 +110,17 @@ vector<int> dijkstra(const vector<vector<Edge>>& roadGraph, const vector<vector<
 }
 
 int main() {
-    // Define the road network (graph) with intersections and road segments
+    
     vector<vector<Edge>> roadGraph(10); // 10 intersections in the simplified road network
 
-    // Define the transit network (graph) with stops and transit edges
     vector<vector<TransitEdge>> transitGraph(5); // 5 transit stops in the simplified transit network
 
-    // Add road segments between intersections (edges in the road graph)
-    // Add transit edges between transit stops (edges in the transit graph)
-    // These edges represent transit routes or lines connecting different stops
 
-    // Perform path planning from intersection 0 to intersection 9 with multimodal transportation
+
     int sourceIntersection = 0;
     int destinationIntersection = 9;
     vector<int> shortestPath = dijkstra(roadGraph, transitGraph, sourceIntersection, destinationIntersection);
 
-    // Output the shortest path
     cout << "Shortest path from intersection " << sourceIntersection << " to intersection " << destinationIntersection << ": ";
     for (int intersection : shortestPath) {
         cout << intersection << " ";
