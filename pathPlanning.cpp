@@ -11,13 +11,13 @@
 
 using namespace std;
 
-// Structure to represent a node (intersection) in the graph
+
 struct Node {
     int id; // Intersection ID
     Node(int _id) : id(_id) {}
 };
 
-// Structure to represent an edge (road segment) in the graph
+
 struct Edge {
     int from; // Source intersection ID
     int to; // Destination intersection ID
@@ -25,14 +25,14 @@ struct Edge {
     Edge(int _from, int _to, int _weight) : from(_from), to(_to), weight(_weight) {}
 };
 
-// Comparator function for priority queue (min heap)
+
 struct CompareDistance {
     bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
         return a.second > b.second; // Compare distances (for min heap)
     }
 };
 
-// Function to perform path planning using Dijkstra's algorithm
+
 vector<int> dijkstra(const vector<vector<Edge>>& graph, int source, int destination) {
     vector<int> distances(graph.size(), numeric_limits<int>::max()); // Initialize distances to infinity
     vector<int> predecessors(graph.size(), -1); // Store predecessors for backtracking
@@ -62,7 +62,7 @@ vector<int> dijkstra(const vector<vector<Edge>>& graph, int source, int destinat
         }
     }
 
-    // Backtrack from destination to source to find the shortest path
+    
     vector<int> shortestPath;
     int currentIntersection = destination;
     while (currentIntersection != source) {
@@ -76,7 +76,7 @@ vector<int> dijkstra(const vector<vector<Edge>>& graph, int source, int destinat
 }
 
 int main() {
-    // Define the road network (graph) with intersections and road segments
+ 
     vector<vector<Edge>> graph(10); // 10 intersections in the simplified road network
 
     // Add road segments between intersections (edges in the graph)
@@ -92,12 +92,10 @@ int main() {
     graph[7].push_back(Edge(7, 8, 25)); // Road from intersection 7 to intersection 8 with weight 25
     graph[8].push_back(Edge(8, 9, 10)); // Road from intersection 8 to intersection 9 with weight 10
 
-    // Perform path planning from intersection 0 to intersection 9
+
     int sourceIntersection = 0;
     int destinationIntersection = 9;
     vector<int> shortestPath = dijkstra(graph, sourceIntersection, destinationIntersection);
-
-    // Output the shortest path
     cout << "Shortest path from intersection " << sourceIntersection << " to intersection " << destinationIntersection << ": ";
     for (int intersection : shortestPath) {
         cout << intersection << " ";
