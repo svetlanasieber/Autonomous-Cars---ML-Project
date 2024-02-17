@@ -1,4 +1,4 @@
-// In this example, we'll simulate a simplified road network with various road conditions, such as one-way streets, intersections with traffic lights, and different speed limits
+// simulate a simplified road network with various road conditions, such as one-way streets, intersections with traffic lights, and different speed limits
 // Dijkstra's algorithm is used to find the shortest path from a source intersection to a destination intersection.
 // The graph weights represent factors such as distance or travel time between intersections.
 // The main function initializes the road network, performs path planning using Dijkstra's algorithm, and outputs the shortest path from a source intersection to a destination intersection.
