@@ -1,9 +1,4 @@
-/*
- * Copyright (C) 2021 by Autonomous Driving Group, Shanghai AI Laboratory
- * Limited. All rights reserved.
- * Yan Guohang <yanguohang@pjlab.org.cn>
- * Ouyang Jinhua <ouyangjinhua@pjlab.org.cn>
- */
+
 #include <boost/filesystem.hpp>
 #include <opencv2/opencv.hpp>
 #include <pangolin/pangolin.h>
