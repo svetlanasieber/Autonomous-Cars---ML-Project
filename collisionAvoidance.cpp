@@ -14,15 +14,15 @@
 using namespace std;
 
 struct Node {
-    int id; // Intersection ID
-    double x, y; // Coordinates of the intersection (for collision detection)
+    int id;
+    double x, y; 
     Node(int _id, double _x, double _y) : id(_id), x(_x), y(_y) {}
 };
 
 struct Edge {
-    int from; // Source intersection ID
-    int to; // Destination intersection ID
-    double weight; // Weight representing distance or travel time
+    int from; 
+    int to; 
+    double weight; 
     Edge(int _from, int _to, double _weight) : from(_from), to(_to), weight(_weight) {}
 };
 
@@ -39,15 +39,15 @@ double computeDistance(double x1, double y1, double x2, double y2) {
 
 vector<int> dijkstra(const vector<vector<Edge>>& graph, const vector<Node>& intersections,
                      int source, int destination, const vector<Node>& obstacles) {
-    vector<double> distances(graph.size(), numeric_limits<double>::max()); // Initialize distances to infinity
+    vector<double> distances(graph.size(), numeric_limits<double>::max()); 
     vector<int> predecessors(graph.size(), -1); // Store predecessors for backtracking
-    priority_queue<pair<int, double>, vector<pair<int, double>>, CompareDistance> pq; // Priority queue for selecting the next node
+    priority_queue<pair<int, double>, vector<pair<int, double>>, CompareDistance> pq; 
 
-    distances[source] = 0; // Distance from source to source is 0
-    pq.push({source, 0}); // Add source node to the priority queue
+    distances[source] = 0; 
+    pq.push({source, 0}); 
 
     while (!pq.empty()) {
-        int currentIntersection = pq.top().first; // Get the intersection with the smallest distance
+        int currentIntersection = pq.top().first; 
         double currentDistance = pq.top().second;
         pq.pop();
 
@@ -60,7 +60,6 @@ vector<int> dijkstra(const vector<vector<Edge>>& graph, const vector<Node>& inte
             double newDistance = currentDistance + edge.weight;
 
             if (newDistance < distances[neighborIntersection]) {
-                // Check for collision with obstacles
                 bool collision = false;
                 for (const Node& obstacle : obstacles) {
                     double distanceToObstacle = computeDistance(intersections[neighborIntersection].x,
@@ -73,9 +72,9 @@ vector<int> dijkstra(const vector<vector<Edge>>& graph, const vector<Node>& inte
                 }
 
                 if (!collision) {
-                    distances[neighborIntersection] = newDistance; // Update distance to neighbor
-                    predecessors[neighborIntersection] = currentIntersection; // Record predecessor for backtracking
-                    pq.push({neighborIntersection, newDistance}); // Add neighbor to priority queue
+                    distances[neighborIntersection] = newDistance; 
+                    predecessors[neighborIntersection] = currentIntersection;
+                    pq.push({neighborIntersection, newDistance}); 
                 }
             }
         }
@@ -88,8 +87,8 @@ vector<int> dijkstra(const vector<vector<Edge>>& graph, const vector<Node>& inte
         shortestPath.push_back(currentIntersection);
         currentIntersection = predecessors[currentIntersection];
     }
-    shortestPath.push_back(source); // Add source intersection to the shortest path
-    reverse(shortestPath.begin(), shortestPath.end()); // Reverse the path to get it in correct order
+    shortestPath.push_back(source); 
+    reverse(shortestPath.begin(), shortestPath.end());
 
     return shortestPath;
 }
