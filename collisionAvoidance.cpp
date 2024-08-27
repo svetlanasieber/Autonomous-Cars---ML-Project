@@ -1,9 +1,3 @@
-//  include collision detection with obstacles such as pedestrians, cyclists, or vehicles
-// A threshold distance is used for collision detection, and Dijkstra's algorithm ensures that the calculated path avoids collisions with obstacles by considering them during path planning.
-// The main function initializes the road network (graph), defines obstacles, and performs
-// collision avoidance path planning using Dijkstra's algorithm. 
-// The resulting path ensures safety by avoiding collisions with obstacles while reaching the destination efficiently
-
 #include <iostream>
 #include <vector>
 #include <unordered_map>
@@ -65,7 +59,7 @@ vector<int> dijkstra(const vector<vector<Edge>>& graph, const vector<Node>& inte
                     double distanceToObstacle = computeDistance(intersections[neighborIntersection].x,
                                                                  intersections[neighborIntersection].y,
                                                                  obstacle.x, obstacle.y);
-                    if (distanceToObstacle < 5.0) { // Threshold distance for collision detection
+                    if (distanceToObstacle < 5.0) { 
                         collision = true;
                         break;
                     }
