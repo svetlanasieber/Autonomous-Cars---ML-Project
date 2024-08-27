@@ -2,7 +2,6 @@
 
 class ObjectDetectionModel {
 public:
-    // Function to perform object detection
     void detectObjects(const std::vector<cv::Mat>& frames) {
         for (const auto& frame : frames) {
          
