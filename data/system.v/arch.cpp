@@ -25,6 +25,6 @@ private:
 
 int main() {
     AutonomousCar car;
-    car.navigateToDestination(5); // Navigate to destination waypoint 5
+    car.navigateToDestination(5);
     return 0;
 }
